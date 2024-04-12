@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumindo via CEP</title>
+</head>
+<body>
+    <div class="container">
+        <p id="cep">Cep:</p>
+        <p id="localidade">Localidade:</p>
+        <p id="logradouro">logadouro</p>
+    </div>
+    <script>
+        fetch("https://viacep.com.br/ws/01001000/json/")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            document.getElementById('cep').textContent = "Cep: " + data.cep;
+            document.getElementById('localidade').textContent = "Localidade: " + data.localidade;
+            document.getElementById("logradouro").innerHTML = "Logadouro: " + data.logradouro;
+        })
+        .catch(error => {
+            console.error('Erro ao carregar os dados:', error);
+        });
+    </script>
+</body> 
+</html>
