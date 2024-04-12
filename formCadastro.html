@@ -1,0 +1,81 @@
+<!--Crie um formulário HTML para um jogador se cadastrar no site.
+1° O jogador precisa inserir seu nome completo, data de nascimento, nome de usuário, email e senha.
+2° Quando ele clicar no botão "se inscrever", uma mensagem "você foi cadastrado com sucesso" deve aparecer na tela.
+3° Não é necessário backend.
+
+Pontos extras:
+1° Faça alguma validação para não permitir que ele se cadastre com nome de usuario "cloud", "lx2018" ou "kiki".
+2°Senha precisa ter pelo menos 6 caracters, um caracter especial como ? ! e um número.-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro jogador</title>
+</head>
+<body>
+    <h1>Cadastro</h1>
+    <form id="registroJogador" onsubmit="return validaForm()">
+        <label>Nome completo
+            <input type="text" id="inNome" required>
+        </label>
+        <br>
+        <label>Data de Nascimento
+            <input type="date" id="inData" required>
+        </label>
+        <br>
+        <label>Nome de usuário
+            <input type="text" id="inUser" required>
+            <span id="usernameErro" class="error"></span>
+        </label>
+        <br>
+        <label>Email
+            <input type="email" id="inEmail" required>
+        </label>
+        <br>
+        <label>Senha
+            <input type="password" id="inSenha" required>
+            <span id="passwordError" class="error"></span>
+        </label>
+        <br>
+        <button type="submit">Se inscrever</button>
+    </form>
+
+    <div id="mensagemSucesso" style="display:none;">
+        <p>Você foi cadastrado com sucesso!</p>
+    </div>
+
+    <script>
+        function validaForm() {
+            var nomeUser = document.getElementById("inUser").value;
+            var senha = document.getElementById("inSenha").value;
+            var usernameError = document.getElementById("usernameErro");
+            var passwordError = document.getElementById("passwordError");
+            var invalidUsername = ["cloud","lx2018", "kiki"];
+            var passwordPattern = /^(?=.*[!@#$%^&*])(?=.*\d).{6,}$/;
+
+
+            if(invalidUsername.includes(nomeUser.toLowerCase())) {
+                usernameError.innerHTML = "Nome do usuário indisponível";
+                return false;
+            } else {
+                usernameError.innerHTML = "";
+            }
+
+            if(!passwordPattern.test(senha)) {
+                passwordError.innerHTML = "A senha deve ter pelo menos 6 caracteres, um caractere especial e um número.";
+                return false;
+            } else {
+                passwordError.innerHTML = "";
+            }
+
+            document.getElementById("registroJogador").style.display = "none";
+            document.getElementById("mensagemSucesso").style.display = "block";
+
+            return false;
+        }
+    </script>
+
+</body>
+</html>

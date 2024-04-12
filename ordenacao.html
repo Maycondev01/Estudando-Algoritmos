@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenar Números</title>
+</head>
+<body>
+    <h1>Ordenar Números</h1>
+    <br>
+    <input type="number" id="inputNumero">
+    <button onclick="adicionarNumero()">Adicionar Número</button>
+    <button onclick="salvarEmJson()">Salvar em JSON</button>
+
+    <div id="saida"></div>
+
+
+    <script>
+        var numeros = [];
+
+        function adicionarNumero() {
+            var inNumero = document.getElementById('inputNumero');
+            var numero = parseInt(inNumero.value);
+
+            if(!isNaN(numero)) {
+                if(numeros.includes(numero)) {
+                    alert("Não é permitido inserir o mesmo número");
+                } else {
+                numeros.push(numero);
+
+                numeros.sort((a,b) => a - b);
+
+                ordenarNumero()
+
+                inNumero.value = "";
+                }
+            } else {
+                alert("Insira um número válido!");
+            }
+        }
+
+        function ordenarNumero() {
+            var saida = document.getElementById("saida");
+            saida.innerHTML = "<h2>Números Ordenados</h2>";
+            saida.innerHTML += '<ul>';
+                for(let numero of numeros) {
+                    saida.innerHTML += "<li>" + numero + "</li>";
+                }
+            saida.innerHTML += '</ul>';
+        }
+
+        // Salvar os números em Json.
+        function salvarEmJson() {
+            const dados = {
+                numeros: numeros
+            };
+
+            const dadosJSON = JSON.stringify(dados);
+
+            const linkDownload = document.createElement('a');
+            linkDownload.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(dadosJSON);
+            linkDownload.download = 'numeros.json';
+            linkDownload.click();
+        }
+    </script>
+
+</body>
+</html>
